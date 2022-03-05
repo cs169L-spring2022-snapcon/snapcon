@@ -1,55 +1,67 @@
+
 name: build
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
-  build:
+  linters:
+    continue-on-error: true
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:11-alpine
-        ports:
-          - "5432:5432"
-        env:
-          POSTGRES_DB: rails_test
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
     env:
-      RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      OSEM_RUBY_VERSION: 2.6.6
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Install Ruby 2.6.6
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.6.6
-
-    - name: Set up Code Climate test-reporter
-      run: |
-        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        chmod +x ./cc-test-reporter
-        ./cc-test-reporter before-build
-    
-    - name: Install bundler
-      run: |
-        gem install bundler
-    - name: Install dependencies
-      run: |
-        bundle install
-    
-    - name: Set up database
-      run: |
-        bundle exec rake db:create db:migrate
-    
-    - name: run RSpec tests and capture coverage
-      run: |
-        bundle exec rspec
-        ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json --input-type simplecov
-    
-    - name: Publish code coverage
-      run: |
-        export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
-        ./cc-test-reporter sum-coverage coverage/codeclimate.*.json
-        ./cc-test-reporter upload-coverage --id ${{ secrets.CODE_CLIMATE_ID }}
-        ./cc-test-reporter after-build --id ${{ secrets.CODE_CLIMATE_ID }}
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6.6
+          bundler-cache: true
+      - run: bundle exec rubocop
+      - run: bundle exec haml-lint app/views
+  spec:
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    name: spec
+    env:
+      OSEM_DB_ADAPTER: sqlite3
+      OSEM_RUBY_VERSION: 2.6.6
+      RAILS_ENV: test
+    strategy:
+      matrix:
+        suite: [models, features, controllers, ability, leftovers]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6.6
+          bundler-cache: true
+      - name: Set up Code Climate test-reporter
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install JavaScript libraries via npm
+        run: npm install
+      - name: Prepare spec
+        run: |
+          rm -f osem_test osem_development
+          bundle exec rake db:setup --trace
+          bundle exec bin/rails webdrivers:chromedriver:update
+      - name: spec/${{ matrix.suite }}
+        run: |
+          bundle exec rake spec:${{ matrix.suite }}
+          ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json --input-type simplecov
+      - name: Publish code coverage
+        run: |
+          export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
+          ./cc-test-reporter sum-coverage coverage/codeclimate.*.json
+          ./cc-test-reporter upload-coverage --id ${{ secrets.CODE_CLIMATE_ID }}
+          ./cc-test-reporter after-build --id ${{ secrets.CODE_CLIMATE_ID }}         
