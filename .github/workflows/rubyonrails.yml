@@ -1,58 +1,44 @@
-# This workflow uses actions that are not certified by GitHub.  They are
-# provided by a third-party and are governed by separate terms of service,
-# privacy policy, and support documentation.
-#
-# This workflow will install a prebuilt Ruby version, install dependencies, and
-# run tests and linters.
-name: "Ruby on Rails CI"
-on: [push]
-#   push:
-#     branches: [ master ]
-#   pull_request:
-#     branches: [ master ]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:11-alpine
-        ports:
-          - "5432:5432"
-        env:
-          POSTGRES_DB: rails_test
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      # Add or replace dependency steps here
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e # v1.92
-        with:
-          bundler-cache: true
-      # Add or replace database setup steps here
-      - name: Set up database schema
-        run: bin/rails db:schema:load
-      # Add or replace test runners here
-      - name: Run tests
-        run: bin/rake
+name: build
 
-  lint:
+on: [push, pull_request]
+
+jobs:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e # v1.92
-        with:
-          bundler-cache: true
-      # Add or replace any other lints here
-      # - name: Security audit dependencies
-      #   run: bin/bundler-audit --update
-      # - name: Security audit application code
-      #   run: bin/brakeman -q -w2
-      - name: Lint Ruby files
-        run: bin/rubocop --parallel
+    - uses: actions/checkout@v2
+
+    - name: Install Ruby 2.6.6
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6.6
+
+    - name: Set up Code Climate test-reporter
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+        ./cc-test-reporter before-build
+    
+    - name: Install bundler
+      run: |
+        gem install bundler
+    - name: Install dependencies
+      run: |
+        bundle install
+    
+    - name: Set up database
+      run: |
+        bundle exec rake db:create db:migrate
+    
+    - name: run RSpec tests and capture coverage
+      run: |
+        bundle exec rspec
+        ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json --input-type simplecov
+    
+    - name: Publish code coverage
+      run: |
+        export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
+        ./cc-test-reporter sum-coverage coverage/codeclimate.*.json
+        ./cc-test-reporter upload-coverage --id ${{ secrets.CODE_CLIMATE_ID }}
+        ./cc-test-reporter after-build --id ${{ secrets.CODE_CLIMATE_ID }}
