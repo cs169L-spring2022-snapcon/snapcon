@@ -26,10 +26,19 @@ jobs:
     - name: Install dependencies
       run: |
         bundle install
-    
-    - name: Set up database
+    - name: Set up PostgreSQL
       run: |
-        bundle exec rake db:create db:migrate
+        sudo apt-get install postgresql libpq-dev
+        sudo service postgresql start
+        sudo -u postgres createuser --superuser "$USER"
+    - name: Install Dependencies
+      run: bundle install
+    - name: Set up test database
+      run: bundle exec rake db:setup 
+    
+    # - name: Set up database
+    #   run: |
+    #     bundle exec rake db:create db:migrate
     
     - name: run RSpec tests and capture coverage
       run: |
