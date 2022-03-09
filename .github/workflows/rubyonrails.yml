@@ -5,11 +5,11 @@
 # This workflow will install a prebuilt Ruby version, install dependencies, and
 # run tests and linters.
 name: "Ruby on Rails CI"
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
+  # push:
+  #   branches: [ master ]
+  # pull_request:
+  #   branches: [ master ]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -40,6 +40,29 @@ jobs:
       - name: Run tests
         run: bin/rake
 
+      - name: Setup CodeClimate test-reporter
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > $CCTR
+          chmod +x $CCTR
+          $CCTR before-build
+      - name: run RSpec tests and capture coverage
+        run: |
+          bundle exec rspec
+          $CCTR format-coverage --output coverage/codeclimate.$SUITE.json --input-type simplecov
+          
+       - name: run Cucumber tests and capture coverage
+         run: |
+          bundle exec cucumber --retry 2
+          $CCTR format-coverage --output coverage/codeclimate.$SUITE.json --input-type simplecov
+    
+       - name: Publish code coverage
+         run: |
+          export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
+          $CCTR sum-coverage coverage/codeclimate.*.json
+          $CCTR upload-coverage --id ${{ secrets.CC_TEST_REPORTER_ID }}
+          $CCTR after-build --id ${{ secrets.CC_TEST_REPORTER_ID }}
+        
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -50,9 +73,9 @@ jobs:
         with:
           bundler-cache: true
       # Add or replace any other lints here
-      - name: Security audit dependencies
-        run: bin/bundler-audit --update
-      - name: Security audit application code
-        run: bin/brakeman -q -w2
+      # - name: Security audit dependencies
+      #   run: bin/bundler-audit --update
+      # - name: Security audit application code
+      #   run: bin/brakeman -q -w2
       - name: Lint Ruby files
         run: bin/rubocop --parallel
