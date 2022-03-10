@@ -3,6 +3,10 @@ name: build
 on: [push, pull_request]
 
 jobs:
+  services:
+    postgres:
+      env:
+          POSTGRES_PASSWORD: postgres
   build:
     runs-on: ubuntu-latest
 
