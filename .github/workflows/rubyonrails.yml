@@ -6,9 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
   steps:
-    - name: Check out repository code
-      uses: actions/checkout@v2
-    # - uses: actions/checkout@v2
+    - uses: actions/checkout@v2s
+    # - uses: actions/checkout@v2s
 
     - name: Install Ruby 2.6.6
       uses: ruby/setup-ruby@v1
@@ -31,10 +30,10 @@ jobs:
       run: |
         sudo apt-get install postgresql libpq-dev
         sudo service postgresql start
-        sudo -u postgres createuser --superuser "$USER"
+        sudo -u postgres createuser --superuser "$USER" with password "$PASSWORD"
       env:
       # user password
-        POSTGRES_PASSWORD: postgres
+      # POSTGRES_PASSWORD: postgres
       # The hostname used to communicate with the PostgreSQL service container
         POSTGRES_HOST: localhost
       # The default PostgreSQL port
