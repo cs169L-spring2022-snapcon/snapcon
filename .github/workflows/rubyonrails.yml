@@ -3,6 +3,9 @@ name: build
 on: [push, pull_request]
 
 jobs:
+  container-job:
+    # Containers must run in Linux based operating systems
+    runs-on: ubuntu-latest
   services:
     postgres:
       env:
@@ -11,7 +14,9 @@ jobs:
     runs-on: ubuntu-latest
 
   steps:
-    - uses: actions/checkout@v2
+    - name: Check out repository code
+        uses: actions/checkout@v2
+    # - uses: actions/checkout@v2
 
     - name: Install Ruby 2.6.6
       uses: ruby/setup-ruby@v1
