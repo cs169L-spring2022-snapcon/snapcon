@@ -30,7 +30,7 @@ jobs:
       run: |
         sudo apt-get install postgresql libpq-dev
         sudo service postgresql start
-        sudo -u postgres createuser --superuser "postgres" 
+        
       env:
         POSTGRES_HOST: postgres
         POSTGRES_PASSWORD: postgres
