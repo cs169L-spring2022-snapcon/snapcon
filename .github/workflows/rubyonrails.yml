@@ -32,7 +32,8 @@ jobs:
         sudo service postgresql start
         sudo -u postgres createuser --superuser "$USER" 
       env:
-        POSTGRES_PASSWORD: snapCon
+        OSEM_DB_USER: "$USER"
+        OSEM_DB_PASSWORD: snapCon
     - name: Install Dependencies
       run: bundle install
     - name: Set up test database
