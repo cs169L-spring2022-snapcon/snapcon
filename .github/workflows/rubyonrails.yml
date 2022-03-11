@@ -30,8 +30,9 @@ jobs:
       run: |
         sudo apt-get install postgresql libpq-dev
         sudo service postgresql start
-        sudo su - postgres
-        
+        sudo -u postgres createuser --superuser "$USER" 
+      env:
+        POSTGRES_PASSWORD: snapCon
     - name: Install Dependencies
       run: bundle install
     - name: Set up test database
