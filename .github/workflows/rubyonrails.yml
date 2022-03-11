@@ -3,16 +3,8 @@ name: build
 on: [push, pull_request]
 
 jobs:
-  container-job:
-    # Containers must run in Linux based operating systems
-    runs-on: ubuntu-latest
-  services:
-    postgres:
-      env:
-          POSTGRES_PASSWORD: postgres
   build:
     runs-on: ubuntu-latest
-
   steps:
     - name: Check out repository code
       uses: actions/checkout@v2
@@ -40,6 +32,13 @@ jobs:
         sudo apt-get install postgresql libpq-dev
         sudo service postgresql start
         sudo -u postgres createuser --superuser "$USER"
+      env:
+      # user password
+        POSTGRES_PASSWORD: postgres
+      # The hostname used to communicate with the PostgreSQL service container
+        POSTGRES_HOST: localhost
+      # The default PostgreSQL port
+        POSTGRES_PORT: 5432
     - name: Install Dependencies
       run: bundle install
     - name: Set up test database
