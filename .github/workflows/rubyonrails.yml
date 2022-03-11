@@ -30,7 +30,7 @@ jobs:
       run: |
         sudo apt-get install postgresql libpq-dev
         sudo service postgresql start
-        sudo -u postgres createuser "$USER" --no-password
+        sudo -u postgres createuser "$USER" --pwprompt "postgres"
     - name: Install Dependencies
       run: bundle install
     - name: Set up test database
