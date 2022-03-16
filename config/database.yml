@@ -3,7 +3,7 @@
   if ENV['OSEM_DB_ADAPTER'] == 'mysql2'
     encoding = 'utf8'
   end
-=%>
+%>
 
 
 default: &default
