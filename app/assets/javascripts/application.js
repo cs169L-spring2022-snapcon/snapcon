@@ -57,6 +57,8 @@
 //= require pagy
 //= require fullcalendar-scheduler/main.js
 //= require fullcalendar
+//= require moment-timezone
+//= require @fullcalendar/moment-timezone/main.global.js
 
 $(document).ready(function() {
     $('a[disabled=disabled]').click(function(event){

@@ -211,6 +211,14 @@ module EventsHelper
     Time.now.in_time_zone(object.timezone).strftime('%Z')
   end
 
+  def timezone_mapping(object)
+    # timezone => Eastern Time (US & Canada)
+    if object && object.timezone
+      return ActiveSupport::TimeZone::MAPPING[object.timezone] # => America/New_York
+    end
+    return nil
+  end
+
   def join_event_link(event, event_schedule, current_user)
     # TODO-SNAPCON: renable ended? check
     return unless current_user && event_schedule && event_schedule.room_url.present?

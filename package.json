@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@fullcalendar/moment-timezone": "^5.10.1",
     "fullcalendar-scheduler": "^5.6.0"
   }
 }

@@ -476,6 +476,9 @@ GEM
     rails-assets-jquery-smooth-scroll (2.2.0)
       rails-assets-jquery (>= 1.7.0)
     rails-assets-markdown (0.5.0)
+    rails-assets-moment (2.29.1)
+    rails-assets-moment-timezone (0.5.34)
+      rails-assets-moment (>= 2.9.0)
     rails-assets-momentjs (2.22.2)
     rails-assets-spectrum (1.8.0)
       rails-assets-jquery (>= 1.7.2)
@@ -782,6 +785,7 @@ DEPENDENCIES
   rails-assets-holderjs!
   rails-assets-jquery-smooth-scroll!
   rails-assets-markdown!
+  rails-assets-moment-timezone!
   rails-assets-momentjs!
   rails-assets-spectrum!
   rails-assets-tinycolor!
