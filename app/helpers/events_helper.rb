@@ -213,10 +213,11 @@ module EventsHelper
 
   def timezone_mapping(object)
     # timezone => Eastern Time (US & Canada)
-    if object && object.timezone
+    if object&.timezone
       return ActiveSupport::TimeZone::MAPPING[object.timezone] # => America/New_York
     end
-    return nil
+
+    nil
   end
 
   def join_event_link(event, event_schedule, current_user)

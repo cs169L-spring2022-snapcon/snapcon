@@ -8,19 +8,29 @@ $( document ).ready(function() {
     let offset = $fullCalendar.data('tzOffset');    
     let interval = $fullCalendar.data('minInterval');
     let userTz = $fullCalendar.data('userTz');
-    let conferenceTz = $fullCalendar.data('conferenceTz');
+    let conferenceTz = $fullCalendar.data('conferenceTz') || 'UTC';
     let localOffset = (new Date()).getTimezoneOffset()/60;
     let userTzOffset = $fullCalendar.data('userTzOffset') || -localOffset
-    let startTime = ($fullCalendar.data('startHour') - (offset - userTzOffset));
-    let endTime = ($fullCalendar.data('endHour') - (offset - userTzOffset));
-    let startDate = new Date($fullCalendar.data('startDate'));
-    let endDate = new Date($fullCalendar.data('endDate')); 
-    let newStartDate = moment.tz($fullCalendar.data('startDate'), conferenceTz).tz(userTz)
-    let newEndDate = moment.tz($fullCalendar.data('endDate'), conferenceTz).tz(userTz)       
-    let event_num_days = (endDate.getTime() - startDate.getTime())/ (1000 * 3600 * 24);
-    let width = Math.min(4, event_num_days);
+    let startTime = $fullCalendar.data('startHour');
+    let endTime = $fullCalendar.data('endHour');
     let localName = userTz || Intl.DateTimeFormat().resolvedOptions().timeZone;
-
+    let startDate = moment.tz($fullCalendar.data('startDate'), conferenceTz).tz(localName);
+    let endDate = moment.tz($fullCalendar.data('endDate'), conferenceTz).tz(localName);     
+    let event_num_days = Math.abs(endDate.diff(startDate, 'days'));
+    let width = Math.min(4, event_num_days);
+    let startTimeDate = moment.tz($fullCalendar.data('startDate'), conferenceTz);
+    let endTimeDate = moment.tz($fullCalendar.data('startDate'), conferenceTz);   
+    startTimeDate.hours(startTime);
+    endTimeDate.hours(endTime);
+    startTimeDate = startTimeDate.tz(localName);
+    endTimeDate = endTimeDate.tz(localName);
+    if (!startTimeDate.isSame(endTimeDate, 'day')) {
+      startTime = 0;
+      endTime = 24;
+    } else {
+      startTime = startTimeDate.hours();
+      endTime = endTimeDate.hours();
+    }
    
     // Program Hours * Minutes / Interval * Min Row Height for an event.
     let contentHeight = Math.max(400, (endTime - startTime) * 60 / interval * 16);
@@ -35,8 +45,8 @@ $( document ).ready(function() {
       contentHeight: contentHeight,
       expandRows: true,
       allDaySlot: false,
-      //slotMinTime: startTime + ':00:00',
-      //slotMaxTime: endTime + ':00:00',
+      slotMinTime: startTime + ':00:00',
+      slotMaxTime: endTime + ':00:00',
       // TODO: Set these dynamically.
       slotDuration: '00:15:00',
       slotLabelInterval: '00:15:00',
@@ -47,10 +57,10 @@ $( document ).ready(function() {
         meridiem: 'short'
       },
       validRange: {
-        start: newStartDate.format('YYYY-MM-DD'),
-        end: newEndDate.format('YYYY-MM-DD')
+        start: startDate.format('YYYY-MM-DD'),
+        end: endDate.format('YYYY-MM-DD')
       },
-      timeZone: userTz,
+      timeZone: userTz || 'local',
       initialDate: $fullCalendar.data('day'),
       initialView: 'resourceTimeGridDay',
       resources: $fullCalendar.data('rooms'),

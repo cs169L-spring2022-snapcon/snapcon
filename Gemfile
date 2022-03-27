@@ -97,8 +97,8 @@ source 'https://rails-assets.org' do
   # for formating dates
   gem 'rails-assets-date.format'
   # for or parsing, validating, manipulating, and formatting dates
-  gem 'rails-assets-momentjs'
   gem 'rails-assets-moment-timezone'
+  gem 'rails-assets-momentjs'
   # for smooth scrolling
   gem 'rails-assets-jquery-smooth-scroll'
   # as color picker
