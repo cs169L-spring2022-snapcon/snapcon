@@ -21,21 +21,21 @@ module NavigationHelpers
     #
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
-    when /^the "(.*)" conference's schedule page$/      
-      conference = Conference.find_by(short_title: $1)
+    when /^the "(.*)" conference's schedule page$/
+      conference = Conference.find_by(short_title: Regexp.last_match(1))
       conference_schedule_path(conference)
-    when /^the login page$/      
+    when /^the login page$/
       new_user_session_path
     when /^the admin's conference page/
       admin_conferences_path
     else
       begin
         page_name =~ /^the (.*) page$/
-        path_components = $1.split(/\s+/)
-        self.send(path_components.push('path').join('_').to_sym)
+        path_components = Regexp.last_match(1).split(/\s+/)
+        send(path_components.push('path').join('_').to_sym)
       rescue NoMethodError, ArgumentError
-        raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
-          "Now, go and add a mapping in #{__FILE__}"
+        raise "Can't find mapping from \"#{page_name}\" to a path.\n" \
+              "Now, go and add a mapping in #{__FILE__}"
       end
     end
   end
