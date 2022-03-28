@@ -256,6 +256,9 @@ group :test do
   gem 'geckodriver-helper'
   gem 'rspec-rails'
   gem 'webdrivers'
+  gem 'cucumber-rails', require: false
+  gem 'cucumber-rails-training-wheels' # basic imperative step defs like "Then I should see..."  
+  gem 'selenium-webdriver' 
   # for measuring test coverage
   gem 'simplecov-cobertura'
   # for describing models
