@@ -16,7 +16,7 @@
     %strong
       - if current_user
         ⏰ This schedule uses your profile's timezone.
-      - else      
+      - else
         ⏰ This schedule uses your browser's local timezone.
       %span.js-localTimezone
 
@@ -27,6 +27,6 @@
     #fullcalendar{ data: { rooms: @rooms, events: @event_schedules, day: @day,
     'start-hour': @conference.start_hour, 'end-hour': @conference.end_hour,
     'start-date': @conference.start_date, 'end-date': @conference.end_date + 1.day,
-    'tz-offset': timezone_offset(@conference), 'user-tz-offset': current_user && timezone_offset(current_user), 
-    'user-tz': timezone_mapping(current_user), 'conference-tz': @conference && @conference.timezone,
+    'tz-offset': timezone_offset(@conference), 'user-tz-offset': current_user && timezone_offset(current_user),
+    'user-tz': timezone_mapping(current_user), 'conference-tz': @conference&.timezone,
     'now': @now, 'min-interval': @conference.program.schedule_interval } }
