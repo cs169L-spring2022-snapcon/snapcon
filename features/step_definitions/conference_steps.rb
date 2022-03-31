@@ -11,11 +11,11 @@ When /^I click on the "(.*)" button/ do |button|
 end
 Then /^I should have the following data in the following order: (.*)/ do |list|
   data_list = list.split(', ')
-  if data_list.length <= 1 
-    step "I should see " + "\"" + data_list[index] + "\""
-  else 
-    (data_list.length - 1).times do |index|      
-      step "I should see " + "\"" + data_list[index] + "\""
+  if data_list.length <= 1
+    step 'I should see ' + '"' + data_list[index] + '"'
+  else
+    (data_list.length - 1).times do |index|
+      step 'I should see ' + '"' + data_list[index] + '"'
       page.body.index(data_list[index]).should < page.body.index(data_list[index + 1])
     end
   end
