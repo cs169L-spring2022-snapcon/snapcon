@@ -29,7 +29,7 @@ test:
   <<: *default
   host: localhost
   database: osem_test
-  OSEM_DB_ADAPTER=sqlite3
+  OSEM_DB_ADAPTER: sqlite3
 
 production:
   <<: *default
