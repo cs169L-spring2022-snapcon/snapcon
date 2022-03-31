@@ -37,6 +37,21 @@ end
 World(FactoryBot::Syntax::Methods)
 World(Rails.application.routes.url_helpers)
 
+Capybara.register_driver :chrome_headless do |app|
+  options = ::Selenium::WebDriver::Chrome::Options.new
+  options.args << '--window-size=1920x1080'
+  options.args << '--headless'
+  options.args << '--no-sandbox'
+  options.args << '--disable-gpu'  
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+
+Capybara.default_max_wait_time = 10 # seconds
+
+# use a real browser for JS tests
+Capybara.javascript_driver = (
+  ENV['OSEM_TEST_DRIVER'].try(:to_sym) || :chrome_headless
+)
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin

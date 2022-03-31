@@ -28,6 +28,9 @@ module NavigationHelpers
       new_user_session_path
     when /^the admin's conference page/
       admin_conferences_path
+    when /^the "(.*)"'s edit profile path/
+      user = User.find_by(username: Regexp.last_match(1))
+      edit_user_path(user.id)
     else
       begin
         page_name =~ /^the (.*) page$/
