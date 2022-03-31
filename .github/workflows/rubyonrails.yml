@@ -26,13 +26,6 @@ jobs:
     - name: Install dependencies
       run: |
         bundle install
-    - name: Set up PostgreSQL
-      run: |
-        sudo apt-get install postgresql libpq-dev
-        sudo service postgresql start
-        sudo -u postgres createuser --superuser "$USER" 
-      env:
-        POSTGRES_PASSWORD: "mysecretpassword"
     - name: Install Dependencies
       run: bundle install
     - name: Set up test database
