@@ -69,7 +69,7 @@ end
 
 describe Conference do
 
-  let(:subject) { create(:conference, start_date: Date.new(2014, 06, 30), end_date: Date.new(2014, 06, 30)) }
+  let(:subject) { create(:conference, start_date: Date.new(2022, 06, 30), end_date: Date.new(2022, 06, 30)) }
 
   describe '#write_event_distribution_to_db' do
 
@@ -115,7 +115,7 @@ describe Conference do
       subject.save
       create(:cfp, start_date: Date.today - 3.weeks, program: subject.program)
 
-      create(:event, program: subject.program, created_at: Date.today - 2.years)
+      create(:event, program: subject.program, created_at: Date.today)
       options = {}
       options[:send_mail] = 'false'
 
