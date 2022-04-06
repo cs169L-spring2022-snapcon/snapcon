@@ -84,7 +84,7 @@ class Event < ApplicationRecord
 
   validate :abstract_limit
   validate :submission_limit
-  validate :before_end_of_conference, on: :create
+  # validate :before_end_of_conference, on: :create
   validates :title, presence: true
   validates :abstract, presence: true
   validates :event_type, presence: true
