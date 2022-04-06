@@ -115,7 +115,7 @@ describe Conference do
       subject.save
       create(:cfp, start_date: Date.today - 3.weeks, program: subject.program)
 
-      create(:event, program: subject.program, created_at: Date.today)
+      create(:event, program: subject.program, created_at: Date.today - 2.years)
       options = {}
       options[:send_mail] = 'false'
 
