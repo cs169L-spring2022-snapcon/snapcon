@@ -31,6 +31,10 @@ module NavigationHelpers
     when /^the "(.*)"'s edit profile path/
       user = User.find_by(username: Regexp.last_match(1))
       edit_user_path(user.id)
+    when /^the "(.*)" conference's all events page/
+      events_conference_schedule_path(Regexp.last_match(1))
+    when /^the "(.*)" conference's happening now page/
+      happening_now_conference_schedule_path(Regexp.last_match(1))
     else
       begin
         page_name =~ /^the (.*) page$/

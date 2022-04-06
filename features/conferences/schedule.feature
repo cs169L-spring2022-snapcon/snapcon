@@ -18,18 +18,16 @@ Scenario: Display conference schedule on local timezone
    
 @javascript
 Scenario: Edit user timezone
-    Given I am on the login page
-    Then I should see "Sign In"
-    When I fill in "admin" for "user_login"
-    And I fill in "password123" for "user_password"
-    And I press "Sign In"
-    Then I should be on the admin's conference page
-    And I should see "Signed in successfully."
+    Given I sign in with username "admin" and password "password123" 
     When I go to the "admin"'s edit profile path
     Then I should see "Edit your profile"
     When I select "Sydney" from "user[timezone]"
     And I press "Update"
     Then I should see "User was successfully updated."
+
+@javascript
+Scenario: View schedule using the user's timezone
+    Given I sign in with username "admin" and password "password123"
     When I go to the "osemdemo" conference's schedule page
     Then I should see "This schedule uses your profile's timezone. (Australia/Sydney UTC +10)"
     And I should see "Sat, May 3"

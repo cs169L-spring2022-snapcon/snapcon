@@ -216,8 +216,12 @@ module EventsHelper
     if object&.timezone
       return ActiveSupport::TimeZone::MAPPING[object.timezone] # => America/New_York
     end
+  end
 
-    nil
+  def convert_timezone(date, old_timezone, new_timezone) 
+    if date && old_timezone && new_timezone
+      date.strftime('%Y-%m-%dT%H:%M:%S').in_time_zone(old_timezone).in_time_zone(new_timezone)
+    end
   end
 
   def join_event_link(event, event_schedule, current_user)
