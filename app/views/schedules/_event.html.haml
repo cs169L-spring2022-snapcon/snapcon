@@ -62,4 +62,4 @@
             = event.track.name
       .col-xs-12.col-md-11
         - cache [event_schedule, event] do
-          = render 'event', event: event, event_schedule: event_schedule
+          = render 'event', event: event, event_schedule: event_schedule, is_brief: true
