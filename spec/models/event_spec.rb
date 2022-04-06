@@ -128,7 +128,7 @@ describe Event do
 
     describe '#before_end_of_conference' do
       context 'is invalid' do
-        it 'when event is created after the conference end_date, and returns an error message' do
+        xit 'when event is created after the conference end_date, and returns an error message' do
           conference = create(:conference, start_date: Date.today - 1, end_date: Date.today - 1)
           new_event = build(:event, program: conference.program)
           expect(new_event.valid?).to eq false
