@@ -32,7 +32,8 @@
     - date = nil
     - time = nil
     - @events_schedules.each do |event_schedule|
-      - new_start_time = current_user ? convert_timezone(event_schedule.start_time, @conference.timezone, current_user.timezone) || event_schedule.start_time : event_schedule.start_time
+      - new_start_time = (current_user ? convert_timezone(event_schedule.start_time, @conference.timezone, current_user.timezone) : nil)
+      || event_schedule.start_time
       - start_ymd = new_start_time.strftime('%Y-%m-%d')
       - unless start_ymd.eql?(date)
         .col-xs-12.col-md-12
