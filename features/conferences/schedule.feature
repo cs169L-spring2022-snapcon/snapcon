@@ -34,7 +34,7 @@ Scenario: View schedule using the user's timezone
     When I click on the "next" button
     And I click on the "listDay" button
     Then I should see "Sun, May 4"
-    And I should have the following data in the following order: 2:00am - 2:30am, first_scheduled_event, 2:15am - 2:45am, second_scheduled_event, 2:30am - 3:00am, multiple_speaker_event
+    And I should have the following data in the following order: 1:00am - 1:30am, first_scheduled_event, 1:15am - 1:45am, second_scheduled_event, 1:30am - 2:00am, multiple_speaker_event
 
 
 

@@ -28,8 +28,8 @@
     %ul.dropdown-menu
       - @dates.each do |date|
         %li.li-dropdown-program
-          - new_date = current_user ? convert_timezone(date.to_datetime.change(hour: @conference.start_hour), @conference.timezone, current_user.timezone).strftime('%Y-%m-%d') : date
-          = link_to new_date, "##{new_date}", class: "program-selector#{ ' no-events-day' unless @conference.program.any_event_for_this_date?(date) }"
+          - new_date = current_user ? convert_timezone(date.to_datetime.change(hour: @conference.start_hour), @conference.timezone, current_user.timezone) || date : date
+          = link_to new_date.strftime('%Y-%m-%d'), "##{new_date.strftime('%Y-%m-%d')}", class: "program-selector#{ ' no-events-day' unless @conference.program.any_event_for_this_date?(date) }"
       - if @unscheduled_events.any?
         %li.li-dropdown-program
           = link_to('Unscheduled', "#unscheduled", class: 'program-selector')
@@ -46,7 +46,7 @@
     - date = nil
     - time = nil
     - @events_schedules.each do |event_schedule|
-      - new_start_time = current_user ? convert_timezone(event_schedule.start_time, @conference.timezone, current_user.timezone) : event_schedule.start_time
+      - new_start_time = current_user ? convert_timezone(event_schedule.start_time, @conference.timezone, current_user.timezone) || event_schedule.start_time : event_schedule.start_time
       - start_ymd = new_start_time.strftime('%Y-%m-%d')
       - unless start_ymd.eql?(date)
         .col-xs-12.col-md-12

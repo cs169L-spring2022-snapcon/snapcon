@@ -214,11 +214,11 @@ module EventsHelper
   def timezone_mapping(object)
     # timezone => Eastern Time (US & Canada)
     if object&.timezone
-      return ActiveSupport::TimeZone::MAPPING[object.timezone] # => America/New_York
+      ActiveSupport::TimeZone::MAPPING[object.timezone] # => America/New_York
     end
   end
 
-  def convert_timezone(date, old_timezone, new_timezone) 
+  def convert_timezone(date, old_timezone, new_timezone)
     if date && old_timezone && new_timezone
       date.strftime('%Y-%m-%dT%H:%M:%S').in_time_zone(old_timezone).in_time_zone(new_timezone)
     end

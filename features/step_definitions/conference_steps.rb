@@ -22,10 +22,16 @@ Then /^I should have the following data in the following order: (.*)/ do |list|
   if data_list.length <= 1
     step 'I should see ' + '"' + data_list[index] + '"'
   else
-    (data_list.length - 1).times do |index|      
+    (data_list.length - 1).times do |index|
       step 'I should see ' + '"' + data_list[index] + '"'
       page.body.index(data_list[index]).should < page.body.index(data_list[index + 1])
     end
+  end
+end
+Then /^I should have the following data: (.*)/ do |list|
+  data_list = list.split(', ')
+  data_list.each do |data|
+    step 'I should see ' + '"' + data + '"'
   end
 end
 
