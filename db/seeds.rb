@@ -10,7 +10,7 @@
 
 # Create sample user
 user = User.find_or_initialize_by(email: 'deleted@localhost.osem', name: 'User deleted',
-                                  username: 'deleted_user', is_disabled: false,
+                                  username: 'deleted_user', is_admin: true,
                                   biography: 'Data is no longer available for deleted user.')
 user.password = "password"
 user.skip_confirmation!
