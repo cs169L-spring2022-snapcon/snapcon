@@ -34,7 +34,3 @@ questions_yes_no.each do |i|
   q.answers = [answer_yes, answer_no]
   q.save!
 end
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
