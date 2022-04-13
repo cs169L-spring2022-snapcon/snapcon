@@ -258,7 +258,7 @@ group :test do
   # for measuring test coverage
   gem 'simplecov-cobertura', '~> 2.0.0'
 
-  gem 'simplecov', '~> 0.18'
+  # gem 'simplecov', '~> 0.18'
   # for describing models
   gem 'shoulda-matchers', require: false
   # for stubing/mocking models
