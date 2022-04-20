@@ -15,10 +15,10 @@ describe Admin::ConferencesController do
   let(:participant) { create(:user) }
 
   shared_examples 'access as organizer or organization_admin' do
-    before do
-      t = Time.local(2014, 05, 01, 00, 01, 00)
-      Timecop.travel(t)
-    end
+    # before do
+    #   t = Time.local(2014, 05, 01, 00, 01, 00)
+    #   Timecop.travel(t)
+    # end
     describe 'PATCH #update' do
       context 'valid attributes' do
         it 'locates the requested conference' do
