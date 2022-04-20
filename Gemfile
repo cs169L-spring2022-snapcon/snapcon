@@ -257,7 +257,6 @@ group :test do
   gem 'webdrivers'
   # for measuring test coverage
   gem 'simplecov-cobertura'
-  gem 'simplecov', '~> 0.17.1'
   # for describing models
   gem 'shoulda-matchers', require: false
   # for stubing/mocking models
