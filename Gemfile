@@ -123,7 +123,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'bootstrap-switch-rails', '~> 3.0.0'
 
 # data tables
-gem 'ajax-datatables-rails'
+gem 'ajax-datatables-rails', '~> 1.2.0'
 gem 'jquery-datatables'
 
 # for charts
