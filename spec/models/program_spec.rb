@@ -25,8 +25,6 @@
 require 'spec_helper'
 
 describe Program do
-  t = Time.local(2014, 05, 01, 00, 01, 00)
-  Timecop.travel(t)
   subject { create(:program) }
   let!(:conference) { create(:conference, end_date: Date.current + 3) }
   let!(:program) { conference.program }
@@ -134,6 +132,10 @@ describe Program do
     end
 
     shared_examples 'voting period' do |voting_start_date, voting_end_date, returns|
+      before :each do
+        t = Time.local(2014, 05, 01, 00, 01, 00)
+        Timecop.travel(t)
+      end
       scenario 'returns true or false' do
         program.voting_start_date = voting_start_date
         program.voting_end_date = voting_end_date
