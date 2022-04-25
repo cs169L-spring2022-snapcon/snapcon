@@ -2,6 +2,9 @@
 
 require 'spec_helper'
 
+t = Time.local(2014, 05, 01, 00, 01, 00)
+Timecop.travel(t)
+
 describe ConferencesController do
   let(:conference) { create(:conference, splashpage: create(:splashpage, public: true), venue: create(:venue)) }
   let!(:cfp) { create(:cfp, program: conference.program) }

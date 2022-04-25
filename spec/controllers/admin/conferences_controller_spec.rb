@@ -3,7 +3,8 @@
 require 'spec_helper'
 
 describe Admin::ConferencesController do
-
+  t = Time.local(2014, 05, 01, 00, 01, 00)
+  Timecop.travel(t)
   # It is necessary to use bang version of let to build roles before user
   let!(:organization) { create(:organization, name: 'organization') }
   let!(:conference) { create(:conference, organization: organization, end_date: Date.new(2014, 05, 26) + 15) }
@@ -15,10 +16,10 @@ describe Admin::ConferencesController do
   let(:participant) { create(:user) }
 
   shared_examples 'access as organizer or organization_admin' do
-    before do
-      t = Time.local(2014, 05, 01, 00, 01, 00)
-      Timecop.travel(t)
-    end
+    # before do
+    #   t = Time.local(2014, 05, 01, 00, 01, 00)
+    #   Timecop.travel(t)
+    # end
     describe 'PATCH #update' do
       context 'valid attributes' do
         it 'locates the requested conference' do

@@ -25,6 +25,8 @@
 require 'spec_helper'
 
 describe Program do
+  t = Time.local(2014, 05, 01, 00, 01, 00)
+  Timecop.travel(t)
   subject { create(:program) }
   let!(:conference) { create(:conference, end_date: Date.current + 3) }
   let!(:program) { conference.program }
