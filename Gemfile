@@ -255,7 +255,7 @@ group :test do
   gem 'geckodriver-helper'
   gem 'rspec-rails'
   gem 'webdrivers'
-  # for measuring test coverage
+  # for measuring test coverage issue
   gem 'simplecov-cobertura'
   # for describing models
   gem 'shoulda-matchers', require: false
