@@ -136,6 +136,9 @@ describe Program do
         t = Time.local(2014, 05, 01, 00, 01, 00)
         Timecop.travel(t)
       end
+      after(:each) do 
+        Timecop.return 
+      end
       scenario 'returns true or false' do
         program.voting_start_date = voting_start_date
         program.voting_end_date = voting_end_date

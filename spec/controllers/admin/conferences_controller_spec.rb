@@ -20,6 +20,9 @@ describe Admin::ConferencesController do
       t = Time.local(2014, 05, 01, 00, 01, 00)
       Timecop.travel(t)
     end
+    after(:each) do 
+      Timecop.return 
+    end
     describe 'PATCH #update' do
       context 'valid attributes' do
         it 'locates the requested conference' do
