@@ -21,13 +21,13 @@ describe Admin::ConferencesController do
   let(:participant) { create(:user) }
 
   shared_examples 'access as organizer or organization_admin' do
-    before :each do
-      t = Time.local(2014, 05, 01, 00, 01, 00)
-      Timecop.travel(t)
-    end
-    after(:each) do 
-      Timecop.return 
-    end
+    # before :each do
+    #   t = Time.local(2014, 05, 01, 00, 01, 00)
+    #   Timecop.travel(t)
+    # end
+    # after(:each) do 
+    #   Timecop.return 
+    # end
     describe 'PATCH #update' do
       context 'valid attributes' do
         it 'locates the requested conference' do
@@ -382,5 +382,4 @@ describe Admin::ConferencesController do
     it_behaves_like 'access as participant or guest', :new_user_session_path
     it_behaves_like 'access as organizer, participant or guest', :new_user_session_path
   end
-  Timecop.return 
 end
