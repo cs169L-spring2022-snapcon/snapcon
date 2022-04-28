@@ -3,8 +3,13 @@
 require 'spec_helper'
 
 describe Admin::ConferencesController do
-  t = Time.local(2014, 05, 01, 00, 01, 00)
-  Timecop.travel(t)
+  before :each do
+    t = Time.local(2014, 05, 01, 00, 01, 00)
+    Timecop.travel(t)
+  end
+  after(:each) do 
+    Timecop.return 
+  end
   # It is necessary to use bang version of let to build roles before user
   let!(:organization) { create(:organization, name: 'organization') }
   let!(:conference) { create(:conference, organization: organization, end_date: Date.new(2014, 05, 26) + 15) }
