@@ -34,6 +34,13 @@
 require 'spec_helper'
 
 describe Event do
+  before :each do
+    t = Time.local(2014, 05, 01, 00, 01, 00)
+    Timecop.travel(t)
+  end
+  after(:each) do 
+    Timecop.return 
+  end
   subject { create(:event) }
   let(:conference) { create(:conference) }
   let(:event) { create(:event, program: conference.program) }
