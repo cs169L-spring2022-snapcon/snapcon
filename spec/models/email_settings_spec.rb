@@ -48,6 +48,13 @@
 require 'spec_helper'
 
 describe EmailSettings do
+  before :each do
+    t = Time.local(2014, 05, 01, 00, 01, 00)
+    Timecop.travel(t)
+  end
+  after(:each) do 
+    Timecop.return 
+  end
   let(:conference) { create(:conference, short_title: 'goto', start_date: Date.new(2014, 05, 01), end_date: Date.new(2014, 05, 06)) }
   let(:user) { create(:user, username: 'johnd', email: 'john@doe.com', name: 'John Doe') }
   let(:event) { create(:event, program: conference.program, title: 'Talk about talks', submitter: user) }
