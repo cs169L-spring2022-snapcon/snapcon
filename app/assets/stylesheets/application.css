@@ -26,5 +26,5 @@
  *= require mastodon
  *= require conferences
 
- *= require fullcalendar-scheduler/main.css
+ *= require node_modules/fullcalendar-scheduler/main.css
 */

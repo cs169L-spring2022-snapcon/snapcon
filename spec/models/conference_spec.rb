@@ -72,8 +72,8 @@ describe Conference do
     t = Time.local(2014, 05, 01, 00, 01, 00)
     Timecop.travel(t)
   end
-  after(:each) do 
-    Timecop.return 
+  after(:each) do
+    Timecop.return
   end
   let(:subject) { create(:conference, start_date: Date.new(2014, 06, 30), end_date: Date.new(2014, 06, 30)) }
 
