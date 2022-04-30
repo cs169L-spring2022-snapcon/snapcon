@@ -36,6 +36,7 @@
 #
 #  index_conferences_on_organization_id  (organization_id)
 #
+# !/bin/env ruby
 require 'spec_helper'
 
 context 'Delegation' do
@@ -67,7 +68,13 @@ context 'Delegation' do
 end
 
 describe Conference do
-
+  before :each do
+    t = Time.local(2014, 05, 01, 00, 01, 00)
+    Timecop.travel(t)
+  end
+  after(:each) do
+    Timecop.return
+  end
   let(:subject) { create(:conference, start_date: Date.new(2014, 06, 30), end_date: Date.new(2014, 06, 30)) }
 
   describe '#write_event_distribution_to_db' do

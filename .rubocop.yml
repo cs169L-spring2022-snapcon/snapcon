@@ -22,8 +22,7 @@ Style/CommentAnnotation:
     - OPTIMIZE
     - HACK
     - REVIEW
-Layout/EndOfLine:
-   Enabled: False
+
 ##################### Metrics ##################################
 
 ##################### Rails ##################################
@@ -44,3 +43,6 @@ RSpec/DescribeClass:
 Layout/AlignHash:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
+
+Layout/EndOfLine:
+   Enabled: False
