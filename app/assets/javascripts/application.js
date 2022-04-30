@@ -55,7 +55,6 @@
 //= require bootstrap-select
 //= require osem-survey
 //= require pagy
-//= require node_modules/fullcalendar-scheduler/main.js
 //= require fullcalendar
 
 $(document).ready(function() {
