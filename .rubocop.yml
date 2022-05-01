@@ -23,6 +23,10 @@ Style/CommentAnnotation:
     - HACK
     - REVIEW
 
+Lint/AmbiguousRegexpLiteral:
+  Exclude:
+    - "features/step_definitions/*"    
+
 ##################### Metrics ##################################
 
 ##################### Rails ##################################

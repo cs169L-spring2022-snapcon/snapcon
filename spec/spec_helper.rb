@@ -4,8 +4,8 @@
 require 'simplecov'
 
 if ENV['GITHUB_ACTIONS'] || ENV['TRAVIS']
-  require 'simplecov-cobertura'
-  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+  require 'simplecov_json_formatter'
+  SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
 end
 SimpleCov.start 'rails'
 
