@@ -1,0 +1,4 @@
+all:
+  exclude:
+    - 'features/step_definitions/web_steps.rb'
+    - 'lib/tasks/cucumber.rake'
