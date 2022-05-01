@@ -46,6 +46,10 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 
+  # Set Time.now to May 1, 2014 00:01:00 AM (at this instant), but allow it to move forward
+  t = Time.local(2014, 0o5, 0o1, 0o0, 0o1, 0o0)
+  Timecop.travel(t)
+
   # Test within database transactions
   config.use_transactional_examples = true
 
