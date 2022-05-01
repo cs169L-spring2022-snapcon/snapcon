@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2022_04_11_235712) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"

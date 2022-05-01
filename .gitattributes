@@ -4,6 +4,7 @@
         # and leave all files detected as binary untouched.
         * text  eol=lf
 
+
         #
         # The above will handle all files NOT found below
         # https://help.github.com/articles/dealing-with-line-endings/
