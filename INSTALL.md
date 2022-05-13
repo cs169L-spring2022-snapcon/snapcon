@@ -1,3 +1,8 @@
+# DO NOT INSTALL OSEM AND USE THE HEROKU TEMPLATE
+Instead deploy from heroku as you would normally, but make sure to inlcude heroku/nodejs and heroku/ruby in the buildpacks (found in settings) as well as HerokuPostgres in the add ons (found in resources)
+
+This will allow you to have a db set up to use on the app (and will let you avoid postgres permission errors)
+
 # Install Open Source Event Manager
 Here is what you need to install OSEM.
 
