@@ -48,4 +48,4 @@
         *.zip binary
         *.7z binary
         *.ttf binary
-        *.pyc binary
+        *.pyc binary   
