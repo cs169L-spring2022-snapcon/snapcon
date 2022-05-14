@@ -36,8 +36,6 @@ Scenario: Filter events based on their type
     When I follow "Panel"
     Then I should see "multiple_speaker_event"
     When I follow "All Event Types"
-    Then I should have the following data in the following order: first_scheduled_event, second_scheduled_event, multiple_speaker_event 
-
-    
+    Then I should have the following data in the following order: first_scheduled_event, second_scheduled_event, multiple_speaker_event   
 
     

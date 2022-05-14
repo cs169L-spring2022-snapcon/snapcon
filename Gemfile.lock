@@ -860,7 +860,9 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   shoulda-matchers
+  simplecov
   simplecov-cobertura
+  simplecov_json_formatter
   skylight
   spring-commands-rspec
   sprockets-rails
