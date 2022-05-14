@@ -25,7 +25,7 @@ Style/CommentAnnotation:
 
 Lint/AmbiguousRegexpLiteral:
   Exclude:
-    - "features/step_definitions/*"    
+    - "features/step_definitions/*"
 
 ##################### Metrics ##################################
 

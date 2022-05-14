@@ -1,6 +1,10 @@
 # Install Snap!Con
 Snap!Con runs Ruby 2.6.6 with Rails 5.2. The backend is provided by PostgreSQL. It is recommended to use RVM to manage the gems for this project. Some JavaScript dependencies are used, which need to be installed via NPM or Yarn.
 
+Very Important to have postgres installed (will cause you too many problems if you don't) and make sure to run CREATE USER _name_ WITH PASSWORD _password_ **This will be your _osem_db_user_ and _osem_db_password_ for the local_env.yml**
+
+Note: the way you install and run postgres is unique to your local setup; there are slightly different commands to do so (however, they all have service, postgres, and start in them)
+
 ## Setup
 The recommended setup steps are as follows:
 
@@ -19,6 +23,7 @@ The recommended setup steps are as follows:
 1. Run `rake db:setup` (this command and all following commands may need to prefixed with `bundle exec`) to initialize the database.
 
 ## Local Deployment
+It is possible to run snap con locally without overmind or foreman, though we have encountered difficulty due to different machines causing different problems on our team.
 
 To run Snap!Con, using [Overmind](https://github.com/DarthSim/overmind) or [Foreman](https://github.com/ddollar/foreman) is recommended. Since a release command is run which automatically performs migrations, it is necessary to flag the `release` command as able to be exited without closing all other processes. The Rails server may be run via the typical `rails server` command, but do note that no jobs will be run.
 

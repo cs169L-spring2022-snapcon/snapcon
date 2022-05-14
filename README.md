@@ -25,6 +25,7 @@ An event management tool tailored to Free and Open Source Software conferences.
 ## Installation
 
 Please refer to our [installation guide](INSTALL.md).
+Also take a look at [local installation guide](INSTALL_SNAPCON.md)
 
 ## How to contribute to OSEM
 
